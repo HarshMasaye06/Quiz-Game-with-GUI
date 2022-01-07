@@ -3,13 +3,14 @@ from tkinter.ttk import *
 
 root = Tk()
 
+# creates a window of the given size
 root.geometry('400x190')
 root.title("-----!! Question no 1 !!-----")
 
 
 def select(event):
-    b = event.widget
-    value = b['text']
+    x = event.widget
+    value = x['text']
 
     for i in range(15):
         if value == answer_key[i]:
@@ -25,6 +26,7 @@ def select(event):
             break
 
 
+# This function removes two incorrect buttons and gets DISABLED after 1 use
 def chance50():
     if questionsArea.get(1.0, 'end-1c') == questions[0]:
         optionbtn1.config(text='')
@@ -88,6 +90,8 @@ def chance50():
         lifeline50.config(state=DISABLED)
 
 
+# This function opens another window which contains the answer(Expert Advice) of the current question
+# and is DISABLED after 1 use.
 def expertadvice():
     if questionsArea.get(1.0, 'end-1c') == questions[0]:
         root1 = Tk()
@@ -181,6 +185,7 @@ def expertadvice():
         root1.mainloop()
 
 
+# list of questions displayed in questionArea
 questions = ["Which is the largest country in the world?",
              "How many days are there in a leap year?",
              "Which one of these four birds has the longest beak and feet?",
@@ -197,6 +202,7 @@ questions = ["Which is the largest country in the world?",
              "ipad is manufactured by?",
              "Who founded Microsoft?"]
 
+# list of 1st options shown on button 1
 option1 = ["India", "354",
            "Heron", "Euro",
            "Javascript", "36",
@@ -204,6 +210,7 @@ option1 = ["India", "354",
            "Earth", "8",
            "100 years", "Google", "Monty Ritz"]
 
+# list of 2nd options shown on button 2
 option2 = ["USA", "366",
            "Parrot", "Peso ",
            "Python", "34",
@@ -212,6 +219,7 @@ option2 = ["USA", "366",
            "50 years",
            "Microsoft", "Danis Lio"]
 
+# list of 3rd options shown on button 3
 option3 = ["China", "365",
            "Crow", "Dollar",
            "Java", "30",
@@ -220,6 +228,7 @@ option3 = ["China", "365",
            "500 years",
            "Amazon", "Bill Gates"]
 
+# list of 4th options shown on button 4
 option4 = ["Russia", "420",
            "Pigeon", "Yen",
            "C++", "37",
@@ -229,19 +238,24 @@ option4 = ["Russia", "420",
            "1000 years", "Apple",
            "Jeff Bezos"]
 
+# this contains all correct answers that are compared with the users selected answer to determine rigth/wrong answer
 answer_key = ["Russia", "366", "Heron", "Dollar", "Python", "36",
               "Linux", "Lion", "11:23PM", "MI", "Jupiter", "7", "1000 years", "Apple",
               "Bill Gates"]
 
+# topmost label showing welcome
 welcome = Label(root, text="!! Welcome to Quiz Game !!")
 welcome.grid(row=0, columnspan=2)
 
+# displays the questions from Questions List
 questionsArea = Text(root, width=50, height=3)
 questionsArea.grid(row=1, columnspan=2)
 questionsArea.insert(END, questions[0])
 
 options = Label(root, text="Options")
 options.grid(row=2, columnspan=3)
+
+# displays the options text on respective buttons
 optionbtn1 = Button(root, text=option1[0])
 optionbtn1.grid(row=3, column=0)
 optionbtn2 = Button(root, text=option2[0])
@@ -251,6 +265,7 @@ optionbtn3.grid(row=4, column=0)
 optionbtn4 = Button(root, text=option4[0])
 optionbtn4.grid(row=4, column=1)
 
+# connects to options with bind function so that users answwer can be compared on clicking the button
 optionbtn1.bind("<Button-1>", select)
 optionbtn2.bind("<Button-1>", select)
 optionbtn3.bind("<Button-1>", select)
@@ -259,11 +274,13 @@ optionbtn4.bind("<Button-1>", select)
 lifeline = Label(root, text="LifeLines")
 lifeline.grid(row=5, columnspan=3)
 
+# displays the button 50-50 which on click calls the chance50 function
 lifeline50 = Button(root, text="50-50", command=chance50)
 lifeline50.grid(row=6, column=0)
 
+# displays the button ExpertAdvice which on click calls the ExpertAdvice function
 lifelineExpertAdvice = Button(root, text="Expert Advice", command=expertadvice)
 lifelineExpertAdvice.grid(row=6, column=1)
 
-
+# runs the main loop
 root.mainloop()
